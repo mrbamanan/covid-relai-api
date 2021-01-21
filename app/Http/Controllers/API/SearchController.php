@@ -25,22 +25,27 @@ class SearchController extends Controller
                 case 'title':
                 $queries->where('title', $value)
                     ->orWhere('title', 'LIKE', '%'.$value)
-                    ->orWhere('title', 'LIKE', $value.'%');
+                    ->orWhere('title', 'LIKE', $value.'%')
+                    ->orWhere('title', 'LIKE', '%'.$value.'%');
                 break;
                 case 'body':
                     $queries->where('body', $value)
                         ->orWhere('body', 'LIKE', '%'.$value)
-                        ->orWhere('body', 'LIKE', $value.'%');
+                        ->orWhere('body', 'LIKE', $value.'%')
+                        ->orWhere('body', 'LIKE', '%'.$value.'%');
+
                     break;
                 case 'place':
                     $queries->where('place', $value)
                         ->orWhere('place', 'LIKE', '%'.$value)
-                        ->orWhere('place', 'LIKE', $value.'%');
+                        ->orWhere('place', 'LIKE', $value.'%')
+                        ->orWhere('place', 'LIKE', '%'.$value.'%');
                     break;
                 case 'source':
                     $queries->where('source', $value)
                         ->orWhere('source', 'LIKE', '%'.$value)
-                        ->orWhere('source', 'LIKE', $value.'%');
+                        ->orWhere('source', 'LIKE', $value.'%')
+                        ->orWhere('source', 'LIKE', '%'.$value.'%');
                     break;
                 default:
                     break;

@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class PostManagementController extends Controller
+class PostAuthController extends Controller
 {
     /**
-     * PostManagementController constructor.
+     * PostAuthController constructor.
      */
     public function __construct()
     {
@@ -31,7 +31,8 @@ class PostManagementController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['files', 'author']);
+
+        $posts = Post::with(['files', 'author', ]);
         return PostResource::collection($posts->get())->response();
     }
 
@@ -42,7 +43,7 @@ class PostManagementController extends Controller
      */
     public function actives()
     {
-        $posts = Post::with(['files', 'author'])->where('active','=',true);
+        $posts = Post::with(['files', 'author'])->where('active');
         return PostResource::collection($posts->get())->response();
     }
 

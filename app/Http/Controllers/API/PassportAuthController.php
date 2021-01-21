@@ -38,9 +38,9 @@ class PassportAuthController extends Controller
         ]);
 
 
-        $token = $user->createToken('covidrelaiapi')->accessToken;
+        $accessToken = $user->createToken('authToken')->accessToken;
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(['user'=>$user, 'access_token' => $accessToken], 200);
     }
 
     /**
@@ -56,20 +56,14 @@ class PassportAuthController extends Controller
         ]);
 
         if (!auth()->attempt($data)) {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return response()->json(['message' => 'This User does not exist, check your details'], 400);
         }
-        $token = auth()->user()->createToken('covidrelaiapi')->accessToken;
-        return response()->json(['token' => $token], 200);
+
+        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+
+        return response()->json(['user' => auth()->user(), 'access_token' => $accessToken]);
 
     }
 
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function user()
-    {
-        $user = auth()->user();
-        return response()->json(['user' => $user], 200);
-    }
 
 }

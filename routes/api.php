@@ -14,34 +14,33 @@
 
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\PassportAuthController;
-use App\Http\Controllers\API\PostController;
-use App\Http\Controllers\API\PostManagementController;
+use App\Http\Controllers\API\PostGuestController;
+use App\Http\Controllers\API\PostAuthController;
 use App\Http\Controllers\API\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+//Client 4 Secret: MsSvBSHwADb4o2EuMtTcnVt9sBM81kn9NLSdQx6V
 
-Route::post('login', [PassportAuthController::class, 'login']);
-Route::post('register', [PassportAuthController::class, 'register']);
 
-Route::middleware('auth:api')->group(function () {
-    Route::prefix('admin')->group(function (){
-        Route::get('/user', [PassportAuthController::class, 'user']);
+Route::middleware('client')->group(function () {
+    Route::post('login', [PassportAuthController::class, 'login']);
+    Route::post('register', [PassportAuthController::class, 'register']);
 
-        Route::get('/posts', [PostManagementController::class, 'index']);
-        Route::get('/posts/actives', [PostManagementController::class, 'actives']);
-        Route::get('/posts/inactives', [PostManagementController::class, 'inActives']);
-        Route::post('/posts', [PostManagementController::class, 'store']);
-        Route::put('/posts/{id}', [PostManagementController::class, 'update']);
-        Route::get('/posts/{id}', [PostManagementController::class, 'show']);
-        Route::delete('/posts/{id}', [PostManagementController::class, 'destroy']);
-        Route::put('/posts/{id}/status-update', [PostManagementController::class, 'stateUpdate']);
-        Route::post('/mark-as-read', [NotificationController::class, 'markAsRead']);
-        Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::apiResource('/', PostGuestController::class)->only(['index', 'show', 'store']);
+    Route::post('search', [SearchController::class, 'search']);
+
+    Route::middleware('auth:api')->group(function () {
+        Route::apiResource('posts', PostAuthController::class);
+        Route::get('posts/inactives', [PostAuthController::class, 'inActives']);
+        Route::get('posts/actives', [PostAuthController::class, 'actives']);
+        Route::post('posts/{id}/update-state', [PostAuthController::class, 'stateUpdate']);
+        Route::post('posts/{id}/comment', [PostAuthController::class, 'storeComment']);
+
+        Route::get('notifications', [NotificationController::class, 'index']);
+        //Route::get('notifications/{id}', [NotificationController::class, 'show']);
+        //Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
+
     });
-});
 
-Route::get('/posts', [PostController::class, 'index']);
-Route::post('/posts', [PostController::class, 'store']);
-Route::get('/posts/{id}', [PostController::class, 'show']);
-Route::post('/posts/search', [SearchController::class, 'search']);
+});

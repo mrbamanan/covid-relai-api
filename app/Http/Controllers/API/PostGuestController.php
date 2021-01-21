@@ -19,14 +19,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 
-class PostController extends Controller
+class PostGuestController extends Controller
 {
     /**
-     * PostController constructor.
+     * PostGuestController constructor.
      */
     public function __construct()
     {
-        $this->middleware('api');
+        $this->middleware('client');
     }
 
     /**
@@ -36,7 +36,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['files', 'author'])->where('active');
+        $posts = Post::with(['files', 'author'])->where('active', '=', '1');
         return PostResource::collection($posts->get())->response();
     }
 
