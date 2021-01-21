@@ -14,7 +14,7 @@ class PassportAuthController extends Controller
      */
     public function __construct()
     {
-     //   $this->middleware('auth:api');
+       $this->middleware('guest');
     }
 
     /**
@@ -22,25 +22,26 @@ class PassportAuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
- public function register(Request $request){
-    $data = $request->validate([
-        "name" => "required|string",
-        "email"=>"required|email|unique:users",
-        "password"=>"required|string|min:8",
-        "password_confirm"=>"required|same:password"
-    ]);
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            "name" => "required|string",
+            "email" => "required|email|unique:users",
+            "password" => "required|string|min:8",
+            "password_confirm" => "required|same:password"
+        ]);
 
-    $user = User::create([
-       "name"=>$data['name'],
-       "email"=>$data['email'],
-       "password"=>bcrypt($data['password'])
-    ]);
+        $user = User::create([
+            "name" => $data['name'],
+            "email" => $data['email'],
+            "password" => bcrypt($data['password'])
+        ]);
 
 
-    $token = $user->createToken('covidrelai')->accessToken;
+        $token = $user->createToken('covidrelaiapi')->accessToken;
 
-     return response()->json(['token' => $token], 200);
- }
+        return response()->json(['token' => $token], 200);
+    }
 
     /**
      * @param Request $request
@@ -57,15 +58,16 @@ class PassportAuthController extends Controller
         if (!auth()->attempt($data)) {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
-            $token = auth()->user()->createToken('covidrelai')->accessToken;
-            return response()->json(['token' => $token], 200);
+        $token = auth()->user()->createToken('covidrelaiapi')->accessToken;
+        return response()->json(['token' => $token], 200);
 
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function user(){
+    public function user()
+    {
         $user = auth()->user();
         return response()->json(['user' => $user], 200);
     }
