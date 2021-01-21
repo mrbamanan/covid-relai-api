@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
     {
 
          \App\Models\User::create([
-             'name'=>'Bamanan Test',
-             'email'=>'bamanan@email.com',
-             'password'=>bcrypt('BamananTest')
+             'name'=>'Admin',
+             'email'=>'admin@email.com',
+             'password'=>bcrypt('admin')
          ]);
 
-        Author::factory(10)
+        Author::factory(3)
             ->has(Post::factory(1), 'posts')
             ->create();
     }

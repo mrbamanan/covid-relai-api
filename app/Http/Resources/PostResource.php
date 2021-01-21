@@ -24,10 +24,11 @@ class PostResource extends JsonResource
                 'place' => $this->place,
                 'source' => $this->source,
                 'active' => $this->active,
-                'comment' => $this->comment
+                'badge' => $this->badge,
+                'comment' => $this->comment,
+                'files' => FileResource::collection($this->whenLoaded('files'))
             ],
             'author' => (new AuthorResource($this->whenLoaded('author'))),
-            'joined_files' => FileResource::collection($this->whenLoaded('files'))
         ];
     }
 }

@@ -38,9 +38,11 @@ class PostTransformer
                     $post->comment = $value;
                     break;
                 case 'active':
-                    $post->active = $value;
+                    $post->active = filter_var($value, FILTER_VALIDATE_BOOLEAN);
                     break;
-
+                case 'badge':
+                    $post->badge = $value;
+                    break;
                 default:
                     break;
             }

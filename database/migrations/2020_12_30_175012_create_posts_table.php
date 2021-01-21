@@ -26,6 +26,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->string('source');
             $table->boolean('active')->default(false);
+            $table->enum('badge', ['Fake', 'Vérifié']);
             $table->string('comment')->nullable();
             $table->timestamps();
         });

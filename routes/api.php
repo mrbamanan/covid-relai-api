@@ -14,30 +14,38 @@
 
 use App\Http\Controllers\API\NotificationController;
 use App\Http\Controllers\API\PassportAuthController;
-use App\Http\Controllers\API\PostGuestController;
-use App\Http\Controllers\API\PostAuthController;
+use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-//Client 4 Secret: MsSvBSHwADb4o2EuMtTcnVt9sBM81kn9NLSdQx6V
-
 
 Route::middleware('client')->group(function () {
     Route::post('login', [PassportAuthController::class, 'login']);
-    Route::post('register', [PassportAuthController::class, 'register']);
+    //Route::post('register', [PassportAuthController::class, 'register']);
 
-    Route::apiResource('/', PostGuestController::class)->only(['index', 'show', 'store']);
+    Route::get('posts', [PostController::class, 'index']);
+    Route::post('posts', [PostController::class, 'store']);
+
     Route::post('search', [SearchController::class, 'search']);
 
     Route::middleware('auth:api')->group(function () {
-        Route::apiResource('posts', PostAuthController::class);
-        Route::get('posts/inactives', [PostAuthController::class, 'inActives']);
-        Route::get('posts/actives', [PostAuthController::class, 'actives']);
-        Route::post('posts/{id}/update-state', [PostAuthController::class, 'stateUpdate']);
-        Route::post('posts/{id}/comment', [PostAuthController::class, 'storeComment']);
+        Route::apiResource('posts', PostController::class)->except('show', 'update', 'delete');
+
+        Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+        Route::put('/posts/{post:slug}', [PostController::class, 'update']);
+        Route::delete('/posts/{post:slug}', [PostController::class, 'destroy']);
+
+        Route::get('posts/inactives', [PostController::class, 'inActives']);
+        Route::get('posts/actives', [PostController::class, 'actives']);
+
+        Route::get('/user', function (\Illuminate\Http\Request $request) {
+            $user = $request->user();
+            return response()->json($user);
+        });
 
         Route::get('notifications', [NotificationController::class, 'index']);
+
         //Route::get('notifications/{id}', [NotificationController::class, 'show']);
         //Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
 

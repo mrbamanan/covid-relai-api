@@ -15,7 +15,10 @@ class Post extends Model
         'slug',
         'place',
         'body',
-        'source'
+        'source',
+        'active',
+        'comment',
+        'badge'
     ];
 
 
