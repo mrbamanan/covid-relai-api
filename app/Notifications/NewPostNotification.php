@@ -57,8 +57,8 @@ class NewPostNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'author' => $this->user->author->name,
             'title' => $this->user->title,
+            'author' => $this->user->author->name,
         ];
     }
 }

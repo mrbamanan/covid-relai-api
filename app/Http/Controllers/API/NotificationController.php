@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\NotificationResource;
+use App\Notifications\NewPostNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +18,7 @@ class NotificationController extends Controller
 
     public function index(){
         $user = Auth::user();
-
-        return response()->json($user->unReadNotifications);
+        return NotificationResource::collection($user->unReadNotifications);
     }
 
     public function markAsRead($notification){
