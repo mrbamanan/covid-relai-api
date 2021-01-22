@@ -20,13 +20,6 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * PostController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('client');
-    }
 
 
     /**
