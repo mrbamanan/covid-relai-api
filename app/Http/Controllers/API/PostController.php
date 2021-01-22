@@ -31,7 +31,7 @@ class PostController extends Controller
     {
         $posts = Post::with(['files', 'author',]);
 
-        if (empty(\auth()->user())) {
+        if (empty(auth()->user())) {
             $posts = Post::with(['files', 'author'])->where('active', '=', true);
         }
 
