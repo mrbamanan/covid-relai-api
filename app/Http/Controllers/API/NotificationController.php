@@ -18,7 +18,7 @@ class NotificationController extends Controller
 
     public function index(){
         $user = Auth::user();
-        return NotificationResource::collection($user->unReadNotifications);
+        return NotificationResource::collection($user->unReadNotifications)->response();
     }
 
     public function markAsRead($notification){
