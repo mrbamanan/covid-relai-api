@@ -31,11 +31,11 @@ class PostController extends Controller
     {
         $posts = Post::with(['files', 'author',]);
 
-        if (!Auth::check()) {
+      /*  if (!Auth::check()) {
             $posts = Post::with(['files', 'author'])->where('active', '=', true);
 
 
-        }
+        }*/
 
         return PostResource::collection($posts->get())->response();
     }
