@@ -24,13 +24,8 @@ Route::middleware('client')->group(function () {
     Route::post('login', [PassportAuthController::class, 'login']);
     //Route::post('register', [PassportAuthController::class, 'register']);
 
-    Route::get('posts', [PostController::class, 'index']);
-    Route::post('posts', [PostController::class, 'store']);
-
-    Route::post('search', [SearchController::class, 'search']);
-
     Route::middleware('auth:api')->group(function () {
-        Route::apiResource('posts', PostController::class)->except('show', 'update', 'delete');
+        Route::apiResource('posts', PostController::class)->except( 'show', 'update', 'delete');
 
         Route::get('/posts/{post:slug}', [PostController::class, 'show']);
         Route::put('/posts/{post:slug}', [PostController::class, 'update']);
@@ -50,5 +45,10 @@ Route::middleware('client')->group(function () {
         //Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
 
     });
+
+    Route::get('posts', [PostController::class, 'index']);
+    Route::post('posts', [PostController::class, 'store']);
+
+    Route::post('search', [SearchController::class, 'search']);
 
 });
