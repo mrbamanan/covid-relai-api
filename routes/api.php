@@ -30,23 +30,23 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/posts/{post:slug}', [PostController::class, 'update']);
     Route::delete('/posts/{post:slug}', [PostController::class, 'destroy']);
 
-    Route::get('posts/inactives', [PostController::class, 'inActives']);
-    Route::get('posts/actives', [PostController::class, 'actives']);
+    Route::get('/posts/inactives', [PostController::class, 'inActives']);
+    Route::get('/posts/actives', [PostController::class, 'actives']);
 
     Route::get('/user', function (\Illuminate\Http\Request $request) {
         $user = $request->user();
         return response()->json($user);
     });
 
-    Route::get('notifications', [NotificationController::class, 'index']);
+    Route::get('/notifications', [NotificationController::class, 'index']);
 
     //Route::get('notifications/{id}', [NotificationController::class, 'show']);
     //Route::post('notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead']);
 
 });
 
-Route::get('posts', [PostController::class, 'index']);
-Route::post('posts', [PostController::class, 'store']);
+Route::get('/posts', [PostController::class, 'index']);
+Route::post('/posts', [PostController::class, 'store']);
 
-Route::post('search', [SearchController::class, 'search']);
+Route::post('/search', [SearchController::class, 'search']);
 
