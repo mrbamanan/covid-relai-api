@@ -24,7 +24,7 @@ Route::post('login', [PassportAuthController::class, 'login']);
 //Route::post('register', [PassportAuthController::class, 'register']);
 
 Route::middleware('auth:api')->group(function () {
-    Route::apiResource('posts', PostController::class)->except('show', 'update', 'delete');
+    Route::apiResource('posts', PostController::class);
 
     Route::get('/posts/{post:slug}', [PostController::class, 'show']);
     Route::put('/posts/{post:slug}', [PostController::class, 'update']);
