@@ -9,13 +9,6 @@ use App\Models\User;
 
 class PassportAuthController extends Controller
 {
-    /**
-     * PassportAuthController constructor.
-     */
-    public function __construct()
-    {
-       $this->middleware('guest');
-    }
 
     /**
      * @param Request $request
