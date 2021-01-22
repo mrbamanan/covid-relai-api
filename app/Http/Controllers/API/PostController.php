@@ -98,7 +98,7 @@ class PostController extends Controller
             'place' => 'nullable|string',
             'body' => 'required|string',
             'source' => 'required|string',
-            'files' => 'nullable|mimes|mimes:jpg,jpeg,png,mp4,mpeg,pdf'
+            'files' => 'nullable|mimes:jpg,jpeg,png,mp4,mpeg,pdf'
         ]);
 
 
