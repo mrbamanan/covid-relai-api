@@ -29,10 +29,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['files', 'author'])->where('active', '=', true);
+        $posts = Post::with(['files', 'author',]);
 
-        if (Auth::check()) {
-            $posts = Post::with(['files', 'author',]);
+        if (!Auth::check()) {
+            $posts = Post::with(['files', 'author'])->where('active', '=', true);
+
+
         }
 
         return PostResource::collection($posts->get())->response();
