@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with(['files', 'author'])->where('active', '=', '1');
+        $posts = Post::with(['files', 'author'])->where('active', '=', true);
 
         if (Auth::check()) {
             $posts = Post::with(['files', 'author',]);
