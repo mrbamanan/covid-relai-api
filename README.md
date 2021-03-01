@@ -17,7 +17,8 @@ This project was generated with [Laravel 8](https://laravel.com)
     -- DB_DATABASE=your database name
     -- DB_USERNAME=your username
     -- DB_PASSWORD=your password
-6- Run migrations with `php artisan migrate`. Then run seeders to generate user with `php artisan db:seed`
+6- Run `php artisan passport:install`
+7- Run migrations with `php artisan migrate`. Then run seeders to generate user with `php artisan db:seed`
 
 
 ## Development server
